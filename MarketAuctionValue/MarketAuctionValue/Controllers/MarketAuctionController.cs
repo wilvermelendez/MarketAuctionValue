@@ -21,9 +21,9 @@ namespace MarketAuctionValue.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCalculatedValuesByModelAndYear(int modelId, int year)
+        public async Task<IActionResult> GetCalculatedValuesByModelAndYear(int id, int year)
         {
-            var response = await _marketAuctionService.GetCalculatedValuesByModelAndYear(modelId, year);
+            var response = await _marketAuctionService.GetCalculatedValuesByModelAndYear(id, year);
             if (response.Success)
             {
                 return Ok(JsonSerializer.Serialize(response));

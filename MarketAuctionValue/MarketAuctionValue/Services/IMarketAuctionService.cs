@@ -5,6 +5,6 @@ namespace MarketAuctionValue.Services
 {
     public interface IMarketAuctionService
     {
-        Task<ResponseData> GetCalculatedValuesByModelAndYear(int modelId, int year);
+        Task<ResponseData> GetCalculatedValuesByModelAndYear(int id, int year);
     }
 }

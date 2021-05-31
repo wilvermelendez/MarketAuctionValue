@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31313.79
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarketAuctionValue", "MarketAuctionValue\MarketAuctionValue.csproj", "{A760F36F-7F57-4689-9CEC-69607F976734}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketAuctionValueTest", "MarketAuctionValueTest\MarketAuctionValueTest.csproj", "{42948E37-2DEE-4796-9FE8-E5A456215765}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketAuctionValue.Test", "MarketAuctionValueTest\MarketAuctionValue.Test.csproj", "{42948E37-2DEE-4796-9FE8-E5A456215765}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -15,7 +15,7 @@ namespace MarketAuctionValue.Services
             _fileUtils = fileUtils;
             _logger = logger;
         }
-        public async Task<ResponseData> GetCalculatedValuesByModelAndYear(int modelId, int year)
+        public async Task<ResponseData> GetCalculatedValuesByModelAndYear(int id, int year)
         {
             var response = new ResponseData()
             {
@@ -24,12 +24,12 @@ namespace MarketAuctionValue.Services
             try
             {
                 var result = await _fileUtils.LoadMarketAuctionFile();
-                if (result.ContainsKey(modelId) && result[modelId].Schedule.Years.ContainsKey(year))
+                if (result.ContainsKey(id) && result[id].Schedule.Years.ContainsKey(year))
                 {
                     var ratioValues = new RatioValues()
                     {
-                        MarketValue = result[modelId].SaleDetail.Cost * (decimal)result[modelId].Schedule.Years[year].MarketRatio,
-                        AuctionValue = result[modelId].SaleDetail.Cost * (decimal)result[modelId].Schedule.Years[year].AuctionRatio
+                        MarketValue = result[id].SaleDetail.Cost * (decimal)result[id].Schedule.Years[year].MarketRatio,
+                        AuctionValue = result[id].SaleDetail.Cost * (decimal)result[id].Schedule.Years[year].AuctionRatio
 
                     };
                     response.Success = true;
@@ -37,9 +37,9 @@ namespace MarketAuctionValue.Services
                     return response;
                 }
 
-                response.Message = !result.ContainsKey(modelId)
-                    ? $"Unfortunately the model equipment id {modelId} was not found in our database."
-                    : $"Unfortunately the model equipment id {modelId} and year {year} was not found in our database.";
+                response.Message = !result.ContainsKey(id)
+                    ? $"Unfortunately the model equipment id {id} was not found in our database."
+                    : $"Unfortunately the model equipment id {id} and year {year} was not found in our database.";
 
 
                 _logger.LogInformation(response.Message);
