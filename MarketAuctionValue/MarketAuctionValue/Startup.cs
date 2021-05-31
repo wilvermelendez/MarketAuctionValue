@@ -33,6 +33,7 @@ namespace MarketAuctionValue
                     options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
                 });
             services.AddScoped<IFileUtils, FileUtils>();
+            services.AddScoped<IMarketAuctionService, MarketAuctionService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MarketAuctionValue", Version = "v1" });

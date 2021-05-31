@@ -1,8 +1,6 @@
-﻿using MarketAuctionValue.DTO;
-using MarketAuctionValue.Services;
+﻿using MarketAuctionValue.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -14,33 +12,23 @@ namespace MarketAuctionValue.Controllers
     [AllowAnonymous]
     public class MarketAuctionController : ControllerBase
     {
-        private readonly IFileUtils _fileUtils;
-        private readonly ILogger<MarketAuctionController> _logger;
-        public MarketAuctionController(ILogger<MarketAuctionController> logger, IFileUtils fileUtils)
+
+        private readonly IMarketAuctionService _marketAuctionService;
+
+        public MarketAuctionController(IMarketAuctionService marketAuctionService)
         {
-            _fileUtils = fileUtils;
-            _logger = logger;
+            _marketAuctionService = marketAuctionService;
         }
-
-
 
         [HttpGet]
         public async Task<IActionResult> GetCalculatedValuesByModelAndYear(int modelId, int year)
         {
-            var result = await _fileUtils.LoadMarketAuctionFile();
-
-            if (result.ContainsKey(modelId) && result[modelId].Schedule.Years.ContainsKey(year))
+            var response = await _marketAuctionService.GetCalculatedValuesByModelAndYear(modelId, year);
+            if (response.Success)
             {
-                var ratioValues = new RatioValues()
-                {
-                    MarketValue = result[modelId].SaleDetail.Cost * (decimal)result[modelId].Schedule.Years[year].MarketRatio,
-                    AuctionValue = result[modelId].SaleDetail.Cost * (decimal)result[modelId].Schedule.Years[year].AuctionRatio
-
-                };
-                return Ok(JsonSerializer.Serialize(ratioValues));
+                return Ok(JsonSerializer.Serialize(response));
             }
-
-            return NotFound($"Unfortunately the model equipment id {modelId} and year {year} was not found in our database.");
+            return NotFound(response.Message);
         }
     }
 }
